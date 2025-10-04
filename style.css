@@ -1,5 +1,10 @@
 body {
   position: relative;
+  text-align: center;
+  /* rainbow text? */
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 body::before {
@@ -17,9 +22,19 @@ body::before {
   pointer-events: none;
   z-index: -1;
 }
-
 h1 {
-  color: black;
-  font-family: fantasy;
-  text-align: center;
+  font-size: 8em;
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow 5s linear infinite alternate;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+h1:hover {
+  animation-play-state: paused;
 }
