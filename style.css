@@ -89,3 +89,7 @@ h1:hover {
   z-index: -2;           /* sotto al contenuto */
   pointer-events: none;  /* non blocca click/touch */
 }
+
+h3 {
+  text-align: left;
+}
