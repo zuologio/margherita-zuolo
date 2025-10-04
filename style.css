@@ -1,0 +1,25 @@
+body {
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('assets/pirates.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  opacity: 0.5; /* Adjust transparency here */
+  pointer-events: none;
+  z-index: -1;
+}
+
+h1 {
+  color: black;
+  font-family: fantasy;
+  text-align: center;
+}
