@@ -11,9 +11,77 @@
   <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
+
   <h2 class="text">Margherita's Pirate Adventures, presents:</h2>
 
   <h1 class="text">Happy 7th Birthday</h1>
   <h1 class="text">Captain Margherita</h1>
+  <script>
+const canvas = document.getElementById("bg-canvas");
+const ctx = canvas.getContext("2d");
+let particles = [];
+let tiltX = 0, tiltY = 0;
+
+// Pastel rainbow palette
+const colors = [
+  "#ffd1dc", "#ffe4b5", "#fffac8", "#b5ead7",
+  "#c7ceea", "#b5b9ff", "#e0bbff"
+];
+
+// Resize canvas to full screen
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+// Create particles
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 12 + 8,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    speed: Math.random() * 0.5 + 0.5
+  });
+}
+
+// Gyroscope support
+if (window.DeviceOrientationEvent) {
+  window.addEventListener("deviceorientation", (event) => {
+    tiltX = event.gamma / 45; // -1..1
+    tiltY = event.beta / 90;  // -1..1
+  });
+}
+
+// Animation loop
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    // movement influenced by tilt
+    p.x += tiltX * 2 + (Math.random() - 0.5) * 0.5;
+    p.y += p.speed + tiltY * 1;
+
+    // wrap around screen
+    if (p.y > canvas.height + p.r) p.y = -p.r;
+    if (p.x > canvas.width + p.r) p.x = -p.r;
+    if (p.x < -p.r) p.x = canvas.width + p.r;
+
+    // draw circle
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.globalAlpha = 0.7;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
 </body>
 </html>

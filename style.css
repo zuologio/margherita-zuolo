@@ -78,3 +78,12 @@ h1:hover {
   0%   { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
+
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2; /* sotto allo sfondo pirates.png */
+}
