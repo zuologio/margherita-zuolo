@@ -92,4 +92,23 @@ h1:hover {
 
 h3 {
   text-align: left;
+  color: #b5b9ff;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow:
+    1px 1px 0 black,
+   -1px 1px 0 black,
+    1px -1px 0 black,
+   -1px -1px 0 black;
+}
+
+a {
+  color: #b5ead7;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow:
+    1px 1px 0 black,
+   -1px 1px 0 black,
+    1px -1px 0 black,
+   -1px -1px 0 black;
 }
