@@ -9,7 +9,7 @@ body {
 
 body::before {
   content: "";
-  position: fixed;
+  position: fixed;       /* non absolute! */
   top: 0;
   left: 0;
   width: 100vw;
@@ -18,10 +18,11 @@ body::before {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-  opacity: 0.5; /* Adjust transparency here */
+  opacity: 0.5;
   pointer-events: none;
-  z-index: -1;
+  z-index: -1;           /* sopra il canvas, ma sotto il testo */
 }
+
 
 /* h1 {
   font-size: 6em;
@@ -80,10 +81,11 @@ h1:hover {
 }
 
 #bg-canvas {
-  position: fixed;
+  position: fixed;       /* sempre fisso rispetto allo schermo */
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2; /* sotto allo sfondo pirates.png */
+  z-index: -2;           /* sotto al contenuto */
+  pointer-events: none;  /* non blocca click/touch */
 }
