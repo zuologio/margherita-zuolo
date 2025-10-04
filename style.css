@@ -22,19 +22,63 @@ body::before {
   pointer-events: none;
   z-index: -1;
 }
-h1 {
-  font-size: 8em;
-  background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+
+/* h1 {
+  font-size: 6em;
+  background: linear-gradient(90deg, #ffd1dc, #ffe4b5, #fffac8, #b5ead7, #c7ceea, #b5b9ff, #e0bbff);
   background-size: 400% 100%;
   -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   -webkit-text-fill-color: transparent;
-  animation: rainbow 5s linear infinite alternate;
+  animation: rainbow 3s linear infinite alternate;
+  -webkit-text-stroke: 1px black;
+
 }
 
 @keyframes rainbow {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
+h1:hover {
+  animation-play-state: paused;
+} */
+
+h1 {
+  font-size: 6em;
+
+  /* Gradient animato */
+  background: linear-gradient(90deg,
+    #ffd1dc, #ffe4b5, #fffac8, #b5ead7,
+    #c7ceea, #b5b9ff, #e0bbff
+  );
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  /* Fondamentale per Android/Chrome mobile */
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  /* Stroke (funziona dove supportato, es. Chrome desktop/Safari) */
+  -webkit-text-stroke: 1px black;
+
+  /* Fallback universale: bordo simulato con ombre */
+  /* text-shadow:
+    1px 1px 0 black,
+   -1px 1px 0 black,
+    1px -1px 0 black,
+   -1px -1px 0 black; */
+
+  /* Animazione arcobaleno */
+  animation: rainbow 5s linear infinite alternate;
+}
+
+@keyframes rainbow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
 h1:hover {
   animation-play-state: paused;
 }
