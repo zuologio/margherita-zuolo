@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Margherita's 7 Birthday!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas id="bg-canvas"></canvas>
+
+    <h2 class="text" style="margin-top: 50px">
+      Le Avventure da Pirata di Margherita:
+    </h2>
+
+    <h1 class="text" style="font-size: 3em">Buon Compleanno</h1>
+    <h1 class="text" style="font-size: 3em">Capitano Margherita</h1>
+
+    <h2 class="text">
+      Sei ufficialmente invitato ad unirti alla ciurma di Margherita per
+      festeggiare con lei il suo settimo compleanno!
+    </h2>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+      "
+    >
+      <div style="position: relative; display: inline-block">
+        <div
+          style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(
+              circle,
+              rgba(255, 255, 255, 0.95) 0%,
+              rgba(255, 255, 255, 0.5) 55%,
+              rgba(255, 255, 255, 0.18) 80%,
+              rgba(255, 255, 255, 0) 100%
+            );
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(18px);
+          "
+        ></div>
+        <img
+          src="assets/cake.png"
+          alt="Birthday Cake"
+          style="
+            max-width: 340px;
+            width: 100%;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 1;
+          "
+        />
+      </div>
+    </div>
+
+    <h3>
+      🗺️ Dove:
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=Via+Marasso+1240,+Lusia"
+        target="_blank"
+        rel="noopener"
+      >
+        La Tana dei Pirati, Via Marasso 1240, Lusia
+      </a>
+    </h3>
+    <h3>
+      🗓️ Quando:
+      <a
+        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Compleanno+di+Margherita&details=Festeggia+il+7%C2%B0+compleanno+di+Margherita!&location=La+Tana+dei+Pirati,+Via+Marasso+1240,+Lusia&dates=20251018T140000Z/20251018T170000Z"
+        target="_blank"
+      >
+        Domenica 26 Ottobre, alle 12:30
+      </a>
+    </h3>
+    <h3>
+      📞 Per favore dare conferma a Sara al
+      <a href="tel:3405276151">340 5276151</a>
+    </h3>
+    <h1>🏴‍☠️</h1>
+    <!-- <h2 class="text">
+      Preparati per un pomeriggio di avventure, giochi e tesori nascosti!
+    </h2> -->
+    <h2 class="text">Non vediamo l'ora di festeggiare con te!</h2>
+    <h2 class="text">Arrr, ci vediamo a bordo!</h2>
+
+    <script>
+      const canvas = document.getElementById('bg-canvas')
+      const ctx = canvas.getContext('2d')
+      let particles = []
+      let tiltX = 0,
+        tiltY = 0
+
+      // Pastel rainbow palette
+      const colors = [
+        '#ffd1dc',
+        '#ffe4b5',
+        '#fffac8',
+        '#b5ead7',
+        '#c7ceea',
+        '#b5b9ff',
+        '#e0bbff',
+      ]
+
+      // Resize canvas to full screen
+      function resize() {
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+      }
+      window.addEventListener('resize', resize)
+      resize()
+
+      // Create particles
+      for (let i = 0; i < 60; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 12 + 8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 0.5 + 0.5,
+        })
+      }
+
+      // Gyroscope support
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', event => {
+          tiltX = event.gamma / 45 // -1..1
+          tiltY = event.beta / 90 // -1..1
+        })
+      }
+
+      // Animation loop
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+        particles.forEach(p => {
+          // movement influenced by tilt
+          p.x += tiltX * 2 + (Math.random() - 0.5) * 0.5
+          p.y += p.speed + tiltY * 1
+
+          // wrap around screen
+          if (p.y > canvas.height + p.r) p.y = -p.r
+          if (p.x > canvas.width + p.r) p.x = -p.r
+          if (p.x < -p.r) p.x = canvas.width + p.r
+
+          // draw circle
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+          ctx.fillStyle = p.color
+          ctx.globalAlpha = 0.7
+          ctx.fill()
+        })
+
+        requestAnimationFrame(animate)
+      }
+      animate()
+    </script>
+  </body>
+</html>
